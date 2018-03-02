@@ -1,0 +1,20 @@
+{
+  "name": "dbtest",
+  "version": "1.0.0",
+  "description": "Test SQLite DB site",
+  "main": "nodetest.js",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "express-handlebars": "^3.0.0",
+    "sqlite3": "^3.1.13"
+  },
+  "devDependencies": {
+    "nodemon": "^1.14.11"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "sageeprice",
+  "license": "ISC"
+}

@@ -1,0 +1,78 @@
+body {
+  align-self: center;
+  background-color: #add9c3;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 1.4rem;
+  font-weight: 100;
+  padding-top: 10vh;
+  vertical-align: middle;
+}
+/*
+div {
+  text-align: center;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+*/
+li {
+  list-style-type: none;
+}
+
+/* /form styles. TODO: move to own file. */
+form {
+  padding-top: 15vh;
+  display: grid;
+  margin: auto;
+  max-width: 800px;
+  overflow: hidden;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 25px;
+}
+
+label {
+  float: left;
+  text-align: center;
+  grid-row: 1 / 2;
+}
+
+/* TODO: split input css for form and other pages. */
+input {
+  float: center;
+  text-align: center;
+}
+
+input:focus {
+  background-color: lightblue;
+}
+
+.add-set-btn {
+  grid-row: 3 / 4;
+  grid-column: 1 / 2;
+}
+
+.send-btn {
+  grid-row: 3 / 4;
+  grid-column: 2 / 3;
+}
+
+.entries {
+  grid-row 2 / 3;
+  grid-column: 1 / 4;
+}
+
+.liftEntry {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 25px;
+  grid-auto-columns: 1fr 1fr 1fr;
+}
+
+.ex {
+  grid-column: 1 / 2;
+}
+.we {
+  grid-column: 2 / 3;
+}
+.re {
+  grid-column: 3 / 4;
+}

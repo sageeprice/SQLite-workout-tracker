@@ -1,0 +1,7 @@
+<body>
+  <h2><div>What I've lifted:</div></h2>
+  {{#each workout}}
+    <div>{{this.type}} for {{this.reps}} reps at {{this.weight}} on {{this.liftTime}}</div>
+  {{/each}}
+  <div><a href="/form">Add a lift</a></div>
+</body>

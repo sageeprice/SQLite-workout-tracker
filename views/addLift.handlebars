@@ -1,0 +1,17 @@
+<body>
+  <script src="js/test.js"></script>
+  <form action="liftSets" method="post">
+    <label for="exercise">Exercise</label>
+    <label for="weight">Weight</label>
+    <label for="reps">Repetitions</label>
+    <div class="entries" id="exerciseEntries">
+      <div class="liftEntry">
+        <input type="text" id="exercise" name="exercise_0" class="ex" placeholder="Enter exercise name" />
+        <input type="number" id="weight" name="weight_0" class="we" placeholder="Enter weight" />
+        <input type="number" id="reps" name="reps_0" class="re" placeholder="Enter rep count" />
+      </div>
+    </div>
+    <button id="addButton" class="add-set-btn" type="button" onclick="addFormSet()">Add a set</button>
+    <input class="send-btn" type="submit" value="Submit exercise" />
+  </form>
+</body>
