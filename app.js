@@ -94,18 +94,6 @@ function getConnection() {
   });
 }
 
-// A function to display a simple form for adding a lift.
-function displayForm(res) {
-  fs.readFile('form.html', function (err, data) {
-    res.writeHead(200, {
-      'Content-Type': 'text/html',
-      'Content-Length': data.length
-    });
-    res.write(data);
-    res.end();
-  });
-}
-
 // DEPRECATED
 // Write workouts in SQLite DB.
 function storeWorkout(req, res) {
@@ -142,6 +130,9 @@ function storeWorkout2(req, res) {
   console.log(b);
   var sets = [];
   for (i = 0; i < Object.keys(b).length / 3; i++) {
+    if (!lifts.includes(b["exercise_"+i])) {
+      return res.status(422).send('Cannot save workout, got poorly formatted exercise name:' + b["exercise_"+i]);
+    }
     sets.push({
       e: b["exercise_"+i],
       w: b["weight_"+i],
