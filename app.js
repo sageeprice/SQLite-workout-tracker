@@ -35,7 +35,6 @@ app.get('/', (req, res) => displayLiftsFromTemplate(res));
 app.get('/addLift', (req, res) => addLiftFromTemplate(res));
 
 // Form submission
-app.get('/form', (req, res) => displayForm(res));
 app.get('/lift', (req, res) => displayWorkouts(res));
 app.post('/lift', function(req, res) {
   storeWorkout(req, res);
@@ -107,6 +106,7 @@ function displayForm(res) {
   });
 }
 
+// DEPRECATED
 // Write workouts in SQLite DB.
 function storeWorkout(req, res) {
   const b = req.body;
@@ -134,6 +134,8 @@ function storeWorkout(req, res) {
   });
 }
 
+// Writes workouts to DB and redirects to home page.
+// Note: accepts multiple workouts as an array.
 function storeWorkout2(req, res) {
   const b = req.body;
 
