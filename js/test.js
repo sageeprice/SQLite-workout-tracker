@@ -1,3 +1,4 @@
+/*
 // TODO: send Post request with contents of sets when a submit button is hit.
 var sets = {
   setList: [],
@@ -72,6 +73,7 @@ var view = {
 
 view.setUpEventListeners();
 
+
 // Trigger the addSetButton on enter in any input field.
 function triggerOnEnter(event) {
 
@@ -89,6 +91,7 @@ function triggerOnEnter(event) {
 var input = document.getElementById("liftName").addEventListener("keyup", triggerOnEnter);
 var input2 = document.getElementById("weightInput").addEventListener("keyup", triggerOnEnter);
 var input3 = document.getElementById("repsInput").addEventListener("keyup", triggerOnEnter);
+*/
 
 
 function addFormSet() {

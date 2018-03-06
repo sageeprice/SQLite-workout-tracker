@@ -1,12 +1,31 @@
-.header {
+header {
   background: #5e9d31;
   color: #0943e1;
   font-family: "Arial";
   text-align: center;
   padding: 3vh;
+  margin: 0;
+}
+
+.nav {
+  background-color: #d1e2c5;
+  color: black;
+  padding: 1vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.nav a {
+  float: left;
+  display: block;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  word-spacing: -6px;
 }
 
 body {
+  margin: 0;
   align-self: center;
   background-color: #cef0b7;
   color: #092834;
@@ -23,7 +42,7 @@ li {
 
 /* /form styles. TODO: move to own file. */
 form {
-  padding-top: 15vh;
+  padding-top: 10vh;
   display: grid;
   margin: auto;
   max-width: 800px;
