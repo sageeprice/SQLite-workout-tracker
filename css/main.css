@@ -11,7 +11,7 @@ header {
   background-color: #fcfbe3;
   color: black;
   padding: 1vh;
-  width: 100%;
+  margin: 0;
   overflow: hidden;
 }
 
@@ -26,7 +26,6 @@ header {
 }
 
 body {
-  margin: 0;
   align-self: center;
   background-color: #cef0b7;
   color: #092834;
@@ -34,6 +33,7 @@ body {
   font-size: 1.4rem;
   font-weight: 100;
   vertical-align: middle;
+  margin: 0;
 }
 
 li {
