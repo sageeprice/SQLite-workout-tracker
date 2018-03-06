@@ -1,6 +1,6 @@
 header {
   background: #5e9d31;
-  color: #0943e1;
+  color: #f9f9f9;
   font-family: "Arial";
   text-align: center;
   padding: 3vh;
@@ -8,7 +8,7 @@ header {
 }
 
 .nav {
-  background-color: #d1e2c5;
+  background-color: #fcfbe3;
   color: black;
   padding: 1vh;
   width: 100%;
