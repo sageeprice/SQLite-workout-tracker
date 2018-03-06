@@ -57,8 +57,8 @@ app.get('/css/main.css', function(req, res) {
   });
 });
 
-app.get('/js/test.js', function(req, res) {
-  fs.readFile('js/test.js', function (err, data) {
+app.get('/js/form.js', function(req, res) {
+  fs.readFile('js/form.js', function (err, data) {
     if (err) {
       console.log(err);
       res.writeHead(400);
