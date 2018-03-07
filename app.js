@@ -83,7 +83,7 @@ app.listen(8000, () => console.log('Example app listening on port 8000!'));
 // TODO: move this logic into a separate file.
 
 // The set of valid lifts that can be performed.
-const lifts = ['deadlift', 'bench press', 'squat', 'pullup'];
+const lifts = ['deadlift', 'bench press', 'squats', 'pull-ups'];
 
 // Opens connection to local SQLite file.
 function getConnection() {
@@ -131,7 +131,9 @@ function storeWorkout2(req, res) {
   var sets = [];
   for (i = 0; i < Object.keys(b).length / 3; i++) {
     if (!lifts.includes(b["exercise_"+i])) {
-      return res.status(422).send('Cannot save workout, got poorly formatted exercise name:' + b["exercise_"+i]);
+      return res.status(422).send(
+          'Cannot save workout, got poorly formatted exercise name:'
+          + b["exercise_"+i]);
     }
     sets.push({
       e: b["exercise_"+i],
