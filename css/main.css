@@ -46,10 +46,10 @@ form {
   padding-top: 10vh;
   display: grid;
   margin: auto;
-  max-width: 800px;
+  max-width: 1200px;
   overflow: hidden;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 25px;
+  grid-template-columns: 1fr 2fr 2fr 2fr 1fr;
+  grid-gap: 20px;
 }
 
 label {
@@ -59,10 +59,14 @@ label {
 }
 
 /* TODO: split input css for form and other pages. */
-input {
-  float: center;
+select {
   text-align: center;
 }
+
+input {
+  text-align: center;
+}
+
 
 input:focus {
   background-color: lightblue;
@@ -70,32 +74,33 @@ input:focus {
 
 .add-set-btn {
   grid-row: 3 / 4;
-  grid-column: 1 / 2;
+  grid-column: 2 / 3;
 }
 
 .send-btn {
   grid-row: 3 / 4;
-  grid-column: 2 / 3;
+  grid-column: 3 / 4;
 }
 
 .entries {
-  grid-row 2 / 3;
-  grid-column: 1 / 4;
+  grid-row: 2 / 3;
+  grid-column: 1 / 6;
 }
 
 .liftEntry {
+  max-width: 1200px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 25px;
-  grid-auto-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 2fr 2fr 2fr 1fr;
+  grid-gap: 20px;
 }
 
+
 .ex {
-  grid-column: 1 / 2;
-}
-.we {
   grid-column: 2 / 3;
 }
-.re {
+.we {
   grid-column: 3 / 4;
+}
+.re {
+  grid-column: 4 / 5;
 }
