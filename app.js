@@ -147,8 +147,8 @@ function storeWorkout2(req, res) {
   var flattenedSets = [];
   sets.forEach(function(set) {
     flattenedSets.push(set.e);
-    flattenedSets.push(set.w);
     flattenedSets.push(set.r);
+    flattenedSets.push(set.w);
     flattenedSets.push(set.d);
   });
   const sql = getLiftInsertStatement(sets.length);
