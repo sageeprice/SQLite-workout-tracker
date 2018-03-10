@@ -43,6 +43,8 @@ app.post('/liftSets', function(req, res) {
   storeWorkout2(req, res);
 });
 
+app.get('/query', (req, res) => query(res));
+
 app.get('/css/main.css', function(req, res) {
   fs.readFile('css/main.css', function (err, data) {
     if (err) {
@@ -207,6 +209,10 @@ function displayLiftsFromTemplate(res) {
 
 function addLiftFromTemplate(res) {
   res.render('addLift');
+}
+
+function query(res) {
+  res.render('query');
 }
 
 // Retrieve workouts from file, and output as list.
