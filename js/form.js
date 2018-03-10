@@ -1,17 +1,3 @@
-/* Keeping this function as a reminder of how to set trigger on enter.
-// Trigger the addSetButton on enter in any input field.
-function triggerOnEnter(event) {
-
-  // Cancel the default action, if needed
-  event.preventDefault();
-  // Number 13 is the "Enter" key on the keyboard
-  if (event.keyCode === 13) {
-    // Trigger the button element with a click
-    document.getElementById("addSetButton").click();
-  }
-}
-*/
-
 /* Functions triggered by buttons */
 
 function addFormSet() {
@@ -25,18 +11,34 @@ function addFormSet() {
   entries.appendChild(newSet);
 
   renameSets();
+  enableDeletion();
 }
 
+// Assigns all values in a set to empty.
 function clearSet() {
   Array.from(event.target.parentNode.children).forEach(i => i.value = '');
 }
 
+// Deletes a set.
 function deleteSet() {
   var clickedSet = event.target.parentNode;
   clickedSet.parentNode.removeChild(clickedSet);
+
   renameSets();
+  if (document.getElementById("exerciseEntries").children.length === 1) {
+    disableDelete();
+  }
 }
 
+
+function disableDelete() {
+  document.getElementsByName("delete_0")[0].disabled = true;
+}
+
+function enableDeletion() {
+  Array.from(document.getElementsByClassName("delete-btn")).forEach(
+      btn => btn.disabled = false);
+}
 
 /* Helper functions */
 
