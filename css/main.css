@@ -60,7 +60,7 @@ label {
 
 /* TODO: split input css for form and other pages. */
 select {
-  text-align: center;
+  text-align-last: center;
 }
 
 input {

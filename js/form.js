@@ -12,9 +12,10 @@ function triggerOnEnter(event) {
 }
 */
 
+/* Functions triggered by buttons */
+
 function addFormSet() {
   var entries = document.getElementById("exerciseEntries");
-  console.log(entries);
 
   // Clone last set, copy value from select field since clone does not preserve
   // the chosen value.
@@ -23,14 +24,33 @@ function addFormSet() {
     entries.lastElementChild.getElementsByTagName("select")[0].value
   entries.appendChild(newSet);
 
-  // Update form elements to have unique names.
-  Array.from(entries.children).forEach(function(entry, index) {
-    Array.from(entry.getElementsByTagName("select"))
-      .forEach(select => updateNameSuffix(select, index));
-    Array.from(entry.getElementsByTagName("input"))
-      .forEach(input => updateNameSuffix(input, index));
+  renameSets();
+}
+
+function clearSet() {
+  Array.from(event.target.parentNode.children).forEach(i => i.value = '');
+}
+
+function deleteSet() {
+  var clickedSet = event.target.parentNode;
+  clickedSet.parentNode.removeChild(clickedSet);
+  renameSets();
+}
+
+
+/* Helper functions */
+
+// Update form elements to have unique names.
+function renameSets() {
+  Array.from(document.getElementById("exerciseEntries").children)
+    .forEach(function(entry, index) {
+      Array.from(entry.getElementsByTagName("select"))
+        .forEach(select => updateNameSuffix(select, index));
+      Array.from(entry.getElementsByTagName("input"))
+        .forEach(input => updateNameSuffix(input, index));
+      Array.from(entry.getElementsByTagName("button"))
+        .forEach(input => updateNameSuffix(input, index));
   });
-      
 }
 
 // Replaces the numeric suffix of an element name with the provided index.
