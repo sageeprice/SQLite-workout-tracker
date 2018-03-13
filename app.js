@@ -43,34 +43,34 @@ app.post('/liftSets', function(req, res) {
   storeWorkout2(req, res);
 });
 
+// Query for filtered data
 app.get('/query', (req, res) => query(res));
 
-app.get('/css/main.css', function(req, res) {
-  fs.readFile('css/main.css', function (err, data) {
-    if (err) {
-      console.log(err);
-      res.writeHead(400);
-      res.end();
-      return;
-    }
-    res.writeHead(200, {"Content-Type": "text/css"});
-    res.write(data);
-    res.end();
-  });
-});
+app.get('/css/*', (req, res) => readResource(req, res, 'css'));
+app.get('/js/*', (req, res) => readResource(req, res, 'javascript'));
 
-app.get('/js/form.js', function(req, res) {
-  fs.readFile('js/form.js', function (err, data) {
+// Function to respond with requested resource of the given type.
+function readResource(req, res, resourceType) {
+  // Current requests include a / at the beginning, drop it.
+  fs.readFile(req.originalUrl.substr(1), function (err, data) {
     if (err) {
       console.log(err);
       res.writeHead(400);
       res.end();
       return;
     }
-    res.writeHead(200, {"Content-Type": "text/javascript"});
+    res.writeHead(200, {"Content-Type": "text/" + resourceType});
     res.write(data);
     res.end();
   });
+}
+
+
+app.get('*', function(req, res) {
+  console.log('Caught request for other resource:');
+  console.log('Requested path:' + req.originalUrl);
+  console.log(req.body);
+  displayWorkouts(res);
 });
 
 
