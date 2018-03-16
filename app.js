@@ -8,6 +8,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 // handlebars for templating
 var hbs = require('express-handlebars');
+// Module for url parsing.
+var url = require('url');
 
 // Import sqlite3 to interact with sqlite via Node.
 const sqlite3 = require('sqlite3').verbose();
@@ -40,11 +42,12 @@ app.post('/lift', function(req, res) {
   storeWorkout(req, res);
 });
 app.post('/liftSets', function(req, res) {
-  storeWorkout2(req, res);
+  storeAllWorkouts(req, res);
 });
 
 // Query for filtered data
-app.get('/query', (req, res) => query(res));
+app.get('/query', (req, res) => querySpecific(res));
+app.get('/filteredLifts', (req, res) => queryWithFilters(req, res));
 
 app.get('/css/*', (req, res) => readResource(req, res, 'css'));
 app.get('/js/*', (req, res) => readResource(req, res, 'javascript'));
@@ -67,15 +70,12 @@ function readResource(req, res, resourceType) {
 
 
 app.get('*', function(req, res) {
-  console.log('Caught request for other resource:');
-  console.log('Requested path:' + req.originalUrl);
-  console.log(req.body);
   displayWorkouts(res);
 });
 
 
 // Listen on port 8000
-app.listen(8000, () => console.log('Example app listening on port 8000!'));
+app.listen(8000, () => console.log('App listening on port 8000!'));
 
 
 
@@ -119,14 +119,13 @@ function storeWorkout(req, res) {
     if (err) {
       return console.error(err.message);
     }
-    // PRG pattern: https://en.wikipedia.org/wiki/Post/Redirect/Get
     return res.redirect('/');
   });
 }
 
 // Writes workouts to DB and redirects to home page.
 // Note: accepts multiple workouts as an array.
-function storeWorkout2(req, res) {
+function storeAllWorkouts(req, res) {
   const b = req.body;
 
   console.log(b);
@@ -164,6 +163,7 @@ function storeWorkout2(req, res) {
     if (err) {
       return console.error(err.message);
     }
+    // PRG pattern: https://en.wikipedia.org/wiki/Post/Redirect/Get
     return res.redirect("/");
   });
 }
@@ -211,9 +211,47 @@ function addLiftFromTemplate(res) {
   res.render('addLift');
 }
 
-function query(res) {
+function querySpecific(res) {
   res.render('query');
 }
+
+function queryWithFilters(req, res) {
+  console.log("Received request for resource: " + req.originalUrl);
+  // Use true to parse Query String.
+  console.log(url.parse(req.originalUrl, true));
+
+  const queryParams = url.parse(req.originalUrl, true).query;
+  let sql = buildQuery(queryParams);
+  console.log("Searching with query: " + sql);
+
+  getConnection().each(sql, [], (err, row) => {
+    if (err) {
+      return console.error(err.message);
+    }
+
+    const liftTime = new Date(row.creationDate);
+    res.write(`<div>${row.type} for ${row.reps} reps at ${row.weight} on ${liftTime}</div>`);
+  }).close((err) => {
+    if (err) {
+      return console.error(err.message);
+    }
+    res.end();
+  });
+}
+
+// Construct a SELECT query from the given parameters.
+function buildQuery(params) {
+  var query = 'SELECT * FROM lifts';
+  if (Object.keys(params).length !== 0) {
+    query += ' WHERE ';
+    var clauses = [];
+    Object.keys(params).forEach(p =>
+        clauses.push(`${p} = "${params[p].replace('+', ' ')}"`));
+    query += clauses.join(' AND ');
+  }
+  return query;
+}
+
 
 // Retrieve workouts from file, and output as list.
 // Manually generates the HTML page.
