@@ -123,7 +123,6 @@ function storeAllWorkouts(req, res) {
     flattenedSets.push(set.d);
   });
   const sql = getLiftInsertStatement(sets.length);
-  console.log(sql);
   getConnection().run(sql, flattenedSets, function(err) {
     if (err) {
       return console.error(err.message);

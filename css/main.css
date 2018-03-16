@@ -1,5 +1,5 @@
 header {
-  background: #5e9d31;
+  background: #4f6a69;
   color: #f9f9f9;
   font-family: "Arial";
   text-align: center;
@@ -8,15 +8,14 @@ header {
 }
 
 .nav {
-  background-color: #fcfbe3;
-  color: black;
+  background-color: #1489b8;
   padding: 1vh;
   margin: 0;
   overflow: hidden;
 }
 
 .nav a {
-  color: darkblue;
+  color: #eef3ef;
   float: left;
   display: block;
   text-align: center;
@@ -27,7 +26,7 @@ header {
 
 body {
   align-self: center;
-  background-color: #cef0b7;
+  background-color: #eef3ef;
   color: #092834;
   font-family: "Courier New", Courier, monospace;
   font-size: 1.4rem;
