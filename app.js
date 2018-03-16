@@ -37,10 +37,6 @@ app.get('/', (req, res) => displayLiftsFromTemplate(res));
 app.get('/addLift', (req, res) => addLiftFromTemplate(res));
 
 // Form submission
-app.get('/lift', (req, res) => displayWorkouts(res));
-app.post('/lift', function(req, res) {
-  storeWorkout(req, res);
-});
 app.post('/liftSets', function(req, res) {
   storeAllWorkouts(req, res);
 });
@@ -70,7 +66,8 @@ function readResource(req, res, resourceType) {
 
 
 app.get('*', function(req, res) {
-  displayWorkouts(res);
+  res.writeHead(404);
+  res.end();
 });
 
 
@@ -93,33 +90,6 @@ function getConnection() {
     if (err) {
       console.error(err.message);
     }
-  });
-}
-
-// DEPRECATED
-// Write workouts in SQLite DB.
-function storeWorkout(req, res) {
-  const b = req.body;
-
-  console.log(b);
-  // Check that exercise is in approved list, return 400 if not.
-  if (!lifts.includes(b.exercise)) {
-    return res.status(400).send('Poorly formatted exercise name!');
-  }
-  
-  // Insert lift into table.
-  const sql = `INSERT INTO lifts(type, reps, weight, creationDate) VALUES(?, ?, ?, ?)`;
-  let db = getConnection();
-  db.run(sql, [b.exercise, b.reps, b.weight, (new Date).getTime()], function(err) {
-    if (err) {
-      return console.log(err.message);
-    }
-    console.log(`Inserted row with row ID ${this.lastID}`);
-  }).close((err) => {
-    if (err) {
-      return console.error(err.message);
-    }
-    return res.redirect('/');
   });
 }
 
