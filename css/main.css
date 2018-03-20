@@ -19,13 +19,12 @@ header {
   float: left;
   display: block;
   text-align: center;
-  padding: 14px 16px;
+  padding: 14px 20px;
   text-decoration: none;
   word-spacing: -6px;
 }
 
 body {
-  align-self: center;
   background-color: #eef3ef;
   color: #092834;
   font-family: "Courier New", Courier, monospace;
@@ -38,7 +37,7 @@ body {
 .report {
   margin: auto;
   vertical-align: middle;
-  max-width: 800px;
+  max-width: 600px;
 }
 
 li {
@@ -46,24 +45,6 @@ li {
   color: #347b98;
 }
 
-/* /form styles. TODO: move to own file. */
-form {
-  padding-top: 10vh;
-  display: grid;
-  margin: auto;
-  max-width: 1200px;
-  overflow: hidden;
-  grid-template-columns: 1fr 2fr 2fr 2fr 1fr;
-  grid-gap: 20px;
-}
-
-label {
-  float: left;
-  text-align: center;
-  grid-row: 1 / 2;
-}
-
-/* TODO: split input css for form and other pages. */
 select {
   text-align-last: center;
 }
@@ -72,45 +53,3 @@ input {
   text-align: center;
 }
 
-
-input:focus {
-  background-color: lightblue;
-}
-
-.add-set-btn {
-  grid-row: 3 / 4;
-  grid-column: 2 / 3;
-}
-
-.send-btn {
-  grid-row: 3 / 4;
-  grid-column: 3 / 4;
-}
-
-.reset-btn {
-  grid-row: 3 / 4;
-  grid-column: 4 / 5;
-}
-
-.entries {
-  grid-row: 2 / 3;
-  grid-column: 1 / 6;
-}
-
-.liftEntry {
-  max-width: 1200px;
-  display: grid;
-  grid-template-columns: 1fr 2fr 2fr 2fr 1fr;
-  grid-gap: 20px;
-}
-
-
-.ex {
-  grid-column: 2 / 3;
-}
-.we {
-  grid-column: 3 / 4;
-}
-.re {
-  grid-column: 4 / 5;
-}

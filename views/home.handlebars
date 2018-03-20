@@ -2,7 +2,7 @@
   <div class="report">
     <h2>Most recent lifts:</h2>
     {{#each workout}}
-      <div>{{this.type}} for {{this.reps}} reps at {{this.weight}} on {{this.liftTime}}</div>
+      <div>{{this.liftTime}}: {{this.type}} for {{this.reps}} reps at {{this.weight}}</div>
     {{/each}}
   </div>
 </body>

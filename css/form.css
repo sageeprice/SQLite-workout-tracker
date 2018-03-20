@@ -1,0 +1,56 @@
+form {
+  padding-top: 10vh;
+  display: grid;
+  margin: auto;
+  max-width: 1200px;
+  overflow: hidden;
+  grid-template-columns: 1fr 2fr 2fr 2fr 1fr;
+  grid-gap: 20px;
+}
+
+label {
+  float: left;
+  text-align: center;
+  grid-row: 1 / 2;
+}
+
+.add-set-btn {
+  grid-row: 3 / 4;
+  grid-column: 2 / 3;
+}
+
+.send-btn {
+  grid-row: 3 / 4;
+  grid-column: 3 / 4;
+}
+
+.reset-btn {
+  grid-row: 3 / 4;
+  grid-column: 4 / 5;
+}
+
+.entries {
+  grid-row: 2 / 3;
+  grid-column: 1 / 6;
+}
+
+/*
+ * Same grid definition as form so that each entry
+ * aligns properly with form columns.
+ */
+.liftEntry {
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: 1fr 2fr 2fr 2fr 1fr;
+  grid-gap: 20px;
+}
+
+.ex {
+  grid-column: 2 / 3;
+}
+.we {
+  grid-column: 3 / 4;
+}
+.re {
+  grid-column: 4 / 5;
+}
