@@ -1,25 +1,25 @@
-    <script src="js/form.js"></script>
-    <link rel="stylesheet" type="text/css" href="/css/form.css">
-    <form action="liftSets" method="post">
-      <label for="exercise" class="ex">Exercise</label>
-      <label for="weight" class="we">Weight</label>
-      <label for="reps" class="re">Repetitions</label>
-      <div class="entries" id="exerciseEntries">
-        <div class="liftEntry">
-          <button name="clear_0" class="clear-btn" type="button" onclick="clearSet()">Clear</button>
-          <select id="exercise" name="exercise_0" class="ex">
-            <option value=""/>
-            <option value="squats">Squat</option>
-            <option value="bench press">Bench Press</option>
-            <option value="deadlift">Deadlift</option>
-            <option value="pull-ups">Pull-Ups</option>
-          </select>
-          <input type="number" id="weight" name="weight_0" class="we" placeholder="Enter weight" />
-          <input type="number" id="reps" name="reps_0" class="re" placeholder="Enter rep count" />
-          <button name="delete_0" class="delete-btn" type="button" onclick="deleteSet()" disabled>Delete</button>
-        </div>
-      </div>
-      <button class="add-set-btn" type="button" onclick="addFormSet()">Add a set</button>
-      <input class="send-btn" type="submit" value="Submit exercise" />
-      <input class="reset-btn" type="reset" value="Clear form"/>
-    </form>
+<script src="js/form.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/form.css">
+<form action="liftSets" method="post">
+  <label for="exercise" class="ex">Exercise</label>
+  <label for="weight" class="we">Weight</label>
+  <label for="reps" class="re">Repetitions</label>
+  <div class="entries" id="exerciseEntries">
+    <div class="liftEntry">
+      <button name="clear_0" class="clear-btn" type="button" onclick="clearSet()">Clear</button>
+      <select id="exercise" name="exercise_0" class="ex">
+        <option value=""/>
+        <option value="squats">Squat</option>
+        <option value="bench press">Bench Press</option>
+        <option value="deadlift">Deadlift</option>
+        <option value="pull-ups">Pull-Ups</option>
+      </select>
+      <input type="number" id="weight" name="weight_0" class="we" placeholder="Enter weight" />
+      <input type="number" id="reps" name="reps_0" class="re" placeholder="Enter rep count" />
+      <button name="delete_0" class="delete-btn" type="button" onclick="deleteSet()" disabled>Delete</button>
+    </div>
+  </div>
+  <button class="add-set-btn" type="button" onclick="addFormSet()">Add a set</button>
+  <input class="send-btn" type="submit" value="Submit exercise" />
+  <input class="reset-btn" type="reset" value="Clear form"/>
+</form>
