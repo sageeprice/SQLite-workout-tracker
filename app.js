@@ -111,7 +111,6 @@ function storeAllWorkouts(req, res) {
       d: (new Date).getTime(),
     });
   }
-  console.log(sets);
 
   var flattenedSets = [];
   sets.forEach(function(set) {
@@ -120,7 +119,7 @@ function storeAllWorkouts(req, res) {
     flattenedSets.push(set.w);
     flattenedSets.push(set.d);
   });
-  const sql = getLiftInsertStatement(sets.length);
+  const sql = buildInsertQuery(sets.length);
   getConnection().run(sql, flattenedSets, function(err) {
     if (err) {
       return console.error(err.message);
@@ -135,7 +134,7 @@ function storeAllWorkouts(req, res) {
   });
 }
 
-function getLiftInsertStatement(setCount) {
+function buildInsertQuery(setCount) {
   var sql = `INSERT INTO lifts(type, reps, weight, creationDate) VALUES(?, ?, ?, ?)`;
   // Start at 1 since query already has one VALUES(..).
   for (i = 1; i < setCount; i++) {
@@ -145,20 +144,16 @@ function getLiftInsertStatement(setCount) {
   return sql;
 }
 
-function renderQueryPage(res) {
-  res.render('query');
-}
-
 // Queries database for all lifts, renders as a list of text divs.
 function renderAllLifts(res) {
-  queryAndRender(buildQuery({}), res);
+  queryAndRender(buildSelectQuery({}), res);
 }
 
 // Queries database for all lifts fitting criteria specified in req.
 function queryWithFilters(req, res) {
   // Use true to parse Query String.
   const queryParams = url.parse(req.originalUrl, true).query;
-  queryAndRender(buildQuery(queryParams), res, false);
+  queryAndRender(buildSelectQuery(queryParams), res, false);
 }
 
 // Queries DB with given SQL, and renders result as a list of text-filled divs.
@@ -192,7 +187,7 @@ function queryAndRender(sql, res, useLayout = true) {
 }
 
 // Construct a SELECT query from the given parameters.
-function buildQuery(params) {
+function buildSelectQuery(params) {
   var query = 'SELECT * FROM lifts';
   if (Object.keys(params).length !== 0) {
     query += ' WHERE ';
@@ -203,7 +198,6 @@ function buildQuery(params) {
   }
   return query;
 }
-
 
 // Helper function to convert JS date to yyyy-mm-dd formatted string.
 function formatDate(d) {
