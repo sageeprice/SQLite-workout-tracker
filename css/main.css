@@ -29,10 +29,16 @@ body {
   background-color: #eef3ef;
   color: #092834;
   font-family: "Courier New", Courier, monospace;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   font-weight: 100;
   vertical-align: middle;
   margin: 0;
+}
+
+.report {
+  margin: auto;
+  vertical-align: middle;
+  max-width: 800px;
 }
 
 li {

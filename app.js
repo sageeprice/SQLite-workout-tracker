@@ -32,17 +32,16 @@ app.use(bodyParser.urlencoded({ extended: false}));
 
 ////// Routing
 // Default path.
-app.get('/', (req, res) => displayLiftsFromTemplate(res));
+app.get('/', (req, res) => renderAllLifts(res));
 
-app.get('/addLift', (req, res) => addLiftFromTemplate(res));
-
-// Form submission
+// Record new lifts.
+app.get('/addLift', (req, res) => res.render('addLift'));
 app.post('/liftSets', function(req, res) {
   storeAllWorkouts(req, res);
 });
 
-// Query for filtered data
-app.get('/query', (req, res) => querySpecific(res));
+// Query for filtered data.
+app.get('/query', (req, res) => res.render('query'));
 app.get('/filteredLifts', (req, res) => queryWithFilters(req, res));
 
 app.get('/css/*', (req, res) => readResource(req, res, 'css'));
@@ -53,7 +52,7 @@ function readResource(req, res, resourceType) {
   // Current requests include a / at the beginning, drop it.
   fs.readFile(req.originalUrl.substr(1), function (err, data) {
     if (err) {
-      console.log(err);
+      console.error(err);
       res.writeHead(400);
       res.end();
       return;
@@ -64,7 +63,7 @@ function readResource(req, res, resourceType) {
   });
 }
 
-
+// TODO: handle mal-formed page requests more elegantly.
 app.get('*', function(req, res) {
   res.writeHead(404);
   res.end();
@@ -98,7 +97,6 @@ function getConnection() {
 function storeAllWorkouts(req, res) {
   const b = req.body;
 
-  console.log(b);
   var sets = [];
   for (i = 0; i < Object.keys(b).length / 3; i++) {
     if (!lifts.includes(b["exercise_"+i])) {
@@ -147,16 +145,34 @@ function getLiftInsertStatement(setCount) {
   return sql;
 }
 
+function renderQueryPage(res) {
+  res.render('query');
+}
 
-// Retrieve workouts from DB, insert into template and display.
-function displayLiftsFromTemplate(res) {
+// Queries database for all lifts, renders as a list of text divs.
+function renderAllLifts(res) {
+  queryAndRender(buildQuery({}), res);
+}
 
+// Queries database for all lifts fitting criteria specified in req.
+function queryWithFilters(req, res) {
+  // Use true to parse Query String.
+  const queryParams = url.parse(req.originalUrl, true).query;
+  queryAndRender(buildQuery(queryParams), res, false);
+}
+
+// Queries DB with given SQL, and renders result as a list of text-filled divs.
+// When optional parameter useLayout is set to false, the base page layout is
+// not rendered as part of the response.
+function queryAndRender(sql, res, useLayout = true) {
   // Accumulator object for workouts, matches template.
-  var data = {workout: []}
+  var data = { workout: [] };
+  // Base layout is not rendered when layout is set to false.
+  if (!useLayout) {
+    data.layout = false;
+  }
 
-  let db = getConnection();
-  let sql = `SELECT * FROM lifts`;
-  db.each(sql, [], (err, row) => {
+  getConnection().each(sql, [], (err, row) => {
     if (err) {
       return console.error(err.message);
     }
@@ -165,46 +181,13 @@ function displayLiftsFromTemplate(res) {
       type: row.type,
       reps: row.reps,
       weight: row.weight,
-      liftTime: new Date(row.creationDate)
+      liftTime: formatDate(new Date(row.creationDate)),
     });
   }).close((err) => {
     if (err) {
       return console.error(err.message);
     }
-    // Render extracted data with hbs.
     res.render('home', data);
-  });
-}
-
-function addLiftFromTemplate(res) {
-  res.render('addLift');
-}
-
-function querySpecific(res) {
-  res.render('query');
-}
-
-function queryWithFilters(req, res) {
-  console.log("Received request for resource: " + req.originalUrl);
-  // Use true to parse Query String.
-  console.log(url.parse(req.originalUrl, true));
-
-  const queryParams = url.parse(req.originalUrl, true).query;
-  let sql = buildQuery(queryParams);
-  console.log("Searching with query: " + sql);
-
-  getConnection().each(sql, [], (err, row) => {
-    if (err) {
-      return console.error(err.message);
-    }
-
-    const liftTime = new Date(row.creationDate);
-    res.write(`<div>${row.type} for ${row.reps} reps at ${row.weight} on ${liftTime}</div>`);
-  }).close((err) => {
-    if (err) {
-      return console.error(err.message);
-    }
-    res.end();
   });
 }
 
@@ -221,6 +204,18 @@ function buildQuery(params) {
   return query;
 }
 
+
+// Helper function to convert JS date to yyyy-mm-dd formatted string.
+function formatDate(d) {
+  var day = '' + d.getDate();
+  var month = '' + (d.getMonth() + 1);
+  var year = '' + d.getFullYear();
+
+  if (month.length < 2) month = '0' + month;
+  if (day.length < 2) day = '0' + day;
+
+  return [year, month, day].join('-');
+}
 
 // Retrieve workouts from file, and output as list.
 // Manually generates the HTML page.

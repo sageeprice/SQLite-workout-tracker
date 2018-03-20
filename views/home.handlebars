@@ -1,6 +1,8 @@
 <body>
-  <div><h2>What I've lifted:</h2></div>
-  {{#each workout}}
-    <div>{{this.type}} for {{this.reps}} reps at {{this.weight}} on {{this.liftTime}}</div>
-  {{/each}}
+  <div class="report">
+    <h2>Most recent lifts:</h2>
+    {{#each workout}}
+      <div>{{this.type}} for {{this.reps}} reps at {{this.weight}} on {{this.liftTime}}</div>
+    {{/each}}
+  </div>
 </body>
