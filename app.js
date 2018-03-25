@@ -67,7 +67,7 @@ function readResource(req, res, resourceType) {
 
 // TODO: handle mal-formed page requests more elegantly.
 app.get('*', function(req, res) {
-  console.log('Resource requested at URL:' + JSON.stringify(url.parse(req.originalUrl, false)));
+//  console.log('Resource requested at URL:' + JSON.stringify(url.parse(req.originalUrl, false)));
   res.writeHead(404);
   res.end();
 });
