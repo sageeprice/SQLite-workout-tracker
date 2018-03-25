@@ -1,0 +1,33 @@
+<script src="js/Chart.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/chart.css">
+<canvas id="myChart"></canvas>
+<script>
+var ctx = document.getElementById("myChart").getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ["2018-01-29", "2018-02-10", "2018-03-10", "2018-03-15"],
+        datasets: [{
+            label: 'Max in lbs',
+            data: [185, 155, 185, 165],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+            ],
+            borderWidth: 5
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                id: 'Weight in lbs',
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+</script>

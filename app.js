@@ -44,6 +44,8 @@ app.post('/liftSets', function(req, res) {
 app.get('/query', (req, res) => res.render('query'));
 app.get('/filteredLifts', (req, res) => queryWithFilters(req, res));
 
+app.get('/chart', (req, res) => res.render('chart'));
+
 app.get('/css/*', (req, res) => readResource(req, res, 'css'));
 app.get('/js/*', (req, res) => readResource(req, res, 'javascript'));
 
@@ -65,6 +67,7 @@ function readResource(req, res, resourceType) {
 
 // TODO: handle mal-formed page requests more elegantly.
 app.get('*', function(req, res) {
+  console.log('Resource requested at URL:' + JSON.stringify(url.parse(req.originalUrl, false)));
   res.writeHead(404);
   res.end();
 });
